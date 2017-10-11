@@ -5,7 +5,7 @@ import moment from 'moment'
 import { template } from 'lodash'
 
 import config from '../config'
-import { pageConstants, initialState as page } from '../../client/ducks/page/index'
+import { initialState as page } from '../../client/ducks/page/index'
 import { routes } from '../../client/routes'
 
 const { client: { assets } } = config

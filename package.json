@@ -69,6 +69,7 @@
     "build": "yarn run clean && yarn build-client && yarn build-server",
     "clean": "rimraf dist build",
     "start": "NODE_ENV=production node dist/server/index.js",
+    "lint": "eslint src",
     "test": "jest"
   },
   "devDependencies": {
