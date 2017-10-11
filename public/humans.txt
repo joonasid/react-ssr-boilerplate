@@ -1,0 +1,5 @@
+/*
+ * React SSR boilerplate brought to you courtesy of Joonas Id (joonas.id@iki.fi)
+ *
+ * https://github.com/joonasid/react-ssr-boilerplate
+ */

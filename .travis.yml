@@ -1,0 +1,7 @@
+sudo: required
+language: node_js
+node_js:
+  - "7"
+cache: yarn
+script: ./scripts/travis/build.sh && ./scripts/travis/test.sh
+

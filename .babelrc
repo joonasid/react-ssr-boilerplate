@@ -1,0 +1,21 @@
+{
+  "presets": ["env", "react-app"],
+  "plugins": [
+    ["styled-components", {
+      "ssr": true
+    }]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    },
+    "production": {
+      "plugins": [[
+        "css-modules-transform", {
+          "generateScopedName": "[hash:8]",
+          "extensions": [".css"]
+        }
+      ]]
+    }
+  }
+}
