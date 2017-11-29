@@ -16,3 +16,5 @@ require('whatwg-fetch');
 Object.assign = require('object-assign');
 
 import "babel-polyfill"
+import 'raf/polyfill';
+
