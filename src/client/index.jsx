@@ -9,6 +9,8 @@ import { routerForBrowser, initializeCurrentLocation } from 'redux-little-router
 import App from './components/StatefulApp'
 import routes from './routes'
 import { getReducers, getSagas, getImmutableState } from './store'
+import { viewActions } from './ducks/view/index'
+import { getDeviceType } from './constants/styles'
 
 if (typeof window !== 'undefined') {
   const rootElement = document.getElementById('root')
@@ -40,10 +42,19 @@ if (typeof window !== 'undefined') {
     store.dispatch(initializeCurrentLocation(initialLocation))
   }
 
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Provider store={store}>
       <App/>
     </Provider>,
     rootElement
   )
+
+  window.addEventListener('resize', () => {
+    const width = window.innerWidth
+    const newDeviceType = getDeviceType(width)
+    const deviceType = store.getState().view.get('deviceType')
+    if (newDeviceType !== deviceType) {
+      store.dispatch(viewActions.changeDeviceType(newDeviceType))
+    }
+  })
 }

@@ -1,11 +1,13 @@
 import fs from 'fs'
 import path from 'path'
+import Promise from 'bluebird'
 
 import moment from 'moment'
 import { template } from 'lodash'
 
 import config from '../config'
-import { initialState as page } from '../../client/ducks/page/index'
+import { initialState as initialPage } from '../../client/ducks/page/index'
+import { initialState as initialView } from '../../client/ducks/view/reducers'
 import { routes } from '../../client/routes'
 
 const { client: { assets } } = config
@@ -95,11 +97,20 @@ export default class FrontPages {
     return this.prepareInitialState().then(this.finalizeAppState)
   }
 
+  getPage = () => ({
+    ...initialPage
+  })
+
+  getView = () => ({
+    ...initialView
+  })
+
   /**
    * Prepare the app initial state, gathering all the redux stores' initial states.
    */
-  prepareInitialState = () => Promise.resolve({
-    page,
+  prepareInitialState = () => Promise.props({
+    page: this.getPage(),
+    view: this.getView()
   })
 
   /**

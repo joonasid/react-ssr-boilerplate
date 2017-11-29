@@ -44,13 +44,27 @@ export const fonts = {
 
 export const deviceTypes = {
   mobile: {
-    maxWidth: '360px'
+    id: 'mobile',
+    maxWidth: 360
   },
   tablet: {
-    minWidth: '361px',
-    maxWidth: '1024px'
+    id: 'tablet',
+    minWidth: 361,
+    maxWidth: 1024
   },
   desktop: {
-    minWidth: '1025px'
+    id: 'desktop',
+    minWidth: 1025
+  }
+}
+
+export const getDeviceType = (width) => {
+  const {mobile, tablet, desktop} = deviceTypes
+  if (width <= mobile.maxWidth) {
+    return mobile.id
+  } else if (width <= tablet.maxWidth) {
+    return tablet.id
+  } else {
+    return desktop.id
   }
 }
