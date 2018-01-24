@@ -46,7 +46,7 @@ const Container = styled.div`
 `
 
 const Header = styled.h1`
-  margin: 1em 0 1em 0;
+  margin: 1rem;
   font-size: 24pt;
 `
 

@@ -2,7 +2,7 @@
 
 This project contains boilerplate code for server-side rendered React application, using the following technologies and libraries:
 
- - React (v15, to be migrated to v16 soon)
+ - React (v16)
  - Redux
  - Redux-saga
  - Re-ducks
@@ -11,8 +11,8 @@ This project contains boilerplate code for server-side rendered React applicatio
 
 ### Requirements
 
- - node.js (v7 or newer)
- - yarn
+ - node.js (v8.9)
+ - yarn (v 1.3.2)
 
 ## Installation and startup
 
