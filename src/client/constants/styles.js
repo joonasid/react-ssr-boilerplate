@@ -1,3 +1,6 @@
+import { css } from 'styled-components'
+import { transform } from 'lodash'
+
 export const COLOR_BLACK = '#000000'
 export const COLOR_WHITE = '#FFFFFF'
 
@@ -68,3 +71,17 @@ export const getDeviceType = (width) => {
     return desktop.id
   }
 }
+
+
+// iterate through the sizes and create a media template
+export const media = transform(deviceTypes, (result, {minWidth}, deviceType) => {
+  // const breakpointInEm = breakpoint / 16
+  if (minWidth) {
+    result[deviceType] = (...args) => css`
+      @media screen and (min-width: ${minWidth}px) {
+          ${css(...args)}
+        }
+    `
+  }
+  return result
+})

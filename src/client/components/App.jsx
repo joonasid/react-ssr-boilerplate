@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled, { injectGlobal } from 'styled-components'
 import reset from 'styled-reset'
 
-import { fonts, deviceTypes } from '../constants/styles'
+import { fonts, media } from '../constants/styles'
 
 injectGlobal`
   ${reset}
@@ -25,6 +25,7 @@ const AppArea = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  background-color: #ddd;
 `
 
 const Container = styled.div`
@@ -33,16 +34,16 @@ const Container = styled.div`
   min-height: 100%;
   padding-bottom: 1em;
   flex-grow: 1;
-
-  @media (min-width: ${deviceTypes.desktop.minWidth}) {
+  
+  ${media.desktop`
     max-width: 800px;
     margin: 4em auto;
     border-radius: 4px;
     padding: 2em 2em 3em 2em;
     box-shadow: 0px 4px 32px 0px rgba(0,0,0,0.15);
     min-height: auto;
-    flex-grow: 0;
-  }
+    flex-grow: 0;  
+  `}
 `
 
 const Header = styled.h1`
