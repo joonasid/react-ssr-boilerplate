@@ -1,46 +1,14 @@
 import React from 'react'
-import types from 'prop-types'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { routerForExpress } from 'redux-little-router'
-import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { renderToNodeStream } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
+import html from '../views/html'
 import routes from '../../client/routes'
 import { getReducers, getImmutableState } from '../../client/store'
 import App from '../../client/components/StatefulApp'
-
-const InitialState = ({ state }) => (
-  <div id="initialState" data-state={JSON.stringify(state)} style={{ display: 'none' }}/>
-)
-
-InitialState.propTypes = {
-  state: types.any
-}
-
-/**
- * @typedef {object} PageData the page metadata
- * @param {string} baseUrl the app baseUrl (protocol, host name and port)
- * @param {string} url the page url
- * @param {string} [canonicalUrl] the page canonical URL, if different from current url
- * @param {string} title the page title
- * @param {string} description the page description
- */
-
-/**
- * @typedef {object} RenderedPage
- * @property {string} html the application rendered into html markup
- * @property {object} state the app initial state rendered into html markup
- * @property {PageData} page the page metadata
- * @property {string} css the application stylesheets rendered into css markup
- */
-
-/**
- * @callback PageRenderer
- * @param {PageData} page the page metadata
- * @param {object} initialState the application initial state
- * @return {RenderedPage} the rendered page data, ready to be inserted into the page template
- */
 
 export default class AppRenderer {
   constructor ({ log, config: { isDevelopment, server: { baseUrl } } }) {
@@ -49,17 +17,13 @@ export default class AppRenderer {
     this.baseUrl = baseUrl
   }
 
-  /**
-   * Get app renderer for the specified request.
-   *
-   * @param request the http request we're serving (used to determine the correct route).
-   * @return {PageRenderer} the renderer, which accepts the app intial state
-   */
-  getRendererForRequest = (request) => (page, initialState) => {
-    if (this.trace) {
-      this.log.debug('Rendering app with initial state', initialState)
-    }
-    const begin = process.hrtime()
+  streamResponseForRequest = (request, response) => (page, initialState) => {
+    const preHtml = html.pre(page, initialState);
+    const postHtml = html.post
+
+    response.charset = 'utf-8'
+    response.header('Content-Type', 'text/html')
+    response.write(preHtml)
 
     const { reducer, middleware, enhancer } = routerForExpress({ routes, request })
     const store = createStore(
@@ -69,19 +33,14 @@ export default class AppRenderer {
     )
 
     const sheet = new ServerStyleSheet()
-    const html = renderToString(sheet.collectStyles(
+    const jsx = sheet.collectStyles(
       <Provider store={store}>
         <App/>
       </Provider>
-    ))
-    const state = renderToStaticMarkup(<InitialState state={store.getState()}/>)
-    const css = sheet.getStyleTags()
+    )
+    const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
 
-    const duration = process.hrtime(begin)
-    if (this.trace) {
-      this.log.debug(`App SSR took ${duration} sec.`)
-    }
-
-    return { page, state, html, css }
+    stream.pipe(response, { end: false })
+    stream.on('end', () => response.end(postHtml))
   }
 }

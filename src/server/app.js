@@ -49,7 +49,7 @@ if (isDevelopment) {
 }
 
 // init routes
-const frontPageRoutes = new FrontPageRoutes({ config, log, renderer, cacheProvider })
+const frontPageRoutes = new FrontPageRoutes({ config, log, renderer })
 const siteMetadataRoutes = new SiteMetadataRoutes({ config, log, cacheProvider })
 
 // app pages

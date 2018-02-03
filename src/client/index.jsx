@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { routerForBrowser, initializeCurrentLocation } from 'redux-little-router'
+import { consolidateStreamedStyles } from 'styled-components'
 
 import App from './components/StatefulApp'
 import routes from './routes'
@@ -15,7 +16,7 @@ import { getDeviceType } from './constants/styles'
 if (typeof window !== 'undefined') {
   const rootElement = document.getElementById('root')
   const initialStateElement = document.getElementById('initialState')
-  const initialState = JSON.parse(initialStateElement.getAttribute('data-state'))
+  const initialState = JSON.parse(initialStateElement.innerHTML)
   if (initialState.config) {
     initialState.config.isInClientSide = true
   }
@@ -41,6 +42,8 @@ if (typeof window !== 'undefined') {
   if (initialLocation) {
     store.dispatch(initializeCurrentLocation(initialLocation))
   }
+
+  consolidateStreamedStyles()
 
   ReactDOM.hydrate(
     <Provider store={store}>
