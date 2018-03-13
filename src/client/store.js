@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import { fork, all } from 'redux-saga/effects'
-import { fromJS } from 'immutable'
 
 import config from './ducks/config'
 import page from './ducks/page'
@@ -20,4 +19,3 @@ export function * getSagas () {
   ])
 }
 
-export const getImmutableState = (state) => fromJS(state).toObject()

@@ -7,7 +7,7 @@ This project contains boilerplate code for server-side rendered React applicatio
  - Redux-saga
  - Re-ducks
  - Styled components
- - Express
+ - Node.js + Express
 
 ### Requirements
 
@@ -41,3 +41,4 @@ Start the following processes in separate windows (do the latter only once the f
  - `SERVER_LOG_LEVEL` (`info`) the minimum log message level to write to console
 
 LICENCE: MIT
+w

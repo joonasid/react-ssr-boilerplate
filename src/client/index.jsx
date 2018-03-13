@@ -8,7 +8,7 @@ import { routerForBrowser, initializeCurrentLocation } from 'redux-little-router
 
 import App from './components/StatefulApp'
 import routes from './routes'
-import { getReducers, getSagas, getImmutableState } from './store'
+import { getReducers, getSagas } from './store'
 import { viewActions } from './ducks/view/index'
 import { getDeviceType } from './constants/styles'
 
@@ -31,7 +31,7 @@ if (typeof window !== 'undefined') {
   const store = {
     ...createStore(
       getReducers({ router }),
-      getImmutableState(initialState),
+      initialState,
       composeWithDevTools(enhancer, applyMiddleware(routerMiddleware, sagaMiddleware))
     ),
     runSaga: sagaMiddleware.run(getSagas)
