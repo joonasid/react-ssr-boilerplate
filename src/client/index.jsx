@@ -52,7 +52,7 @@ if (typeof window !== 'undefined') {
   window.addEventListener('resize', () => {
     const width = window.innerWidth
     const newDeviceType = getDeviceType(width)
-    const deviceType = store.getState().view.get('deviceType')
+    const deviceType = store.getState().view.deviceType
     if (newDeviceType !== deviceType) {
       store.dispatch(viewActions.changeDeviceType(newDeviceType))
     }
