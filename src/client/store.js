@@ -13,9 +13,9 @@ export const getReducers = (additionalReducers) => combineReducers({
   ...additionalReducers
 })
 
-export function * getSagas () {
+export function * getSagas (context) {
   yield all([
-    fork(routerSagas.watchLocationChange)
+    fork(routerSagas.watchLocationChange, context)
   ])
 }
 
