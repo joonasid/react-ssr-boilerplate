@@ -1,12 +1,14 @@
-/* eslint-disable no-console */
 import { put, takeEvery } from 'redux-saga/effects'
 
 import { routes } from '../../routes'
 import types from './types'
 import { pageActions } from '../page/index'
 
-function * handleLocationChange ({ payload }) {
+function * handleLocationChange (context, { payload }) {
+  const {services: {log}} = context
   const { route } = payload
+
+  log.debug('Oi! Route changed', payload)
 
   if (route) {
     switch (route) {
@@ -15,13 +17,13 @@ function * handleLocationChange ({ payload }) {
         break
 
       default:
-        console.log(`Unknown route: ${route}`)
+        log.warn(`Unknown route: ${route}`)
     }
   }
 }
 
-function * watchLocationChange () {
-  yield takeEvery(types.LOCATION_CHANGED, handleLocationChange)
+function * watchLocationChange (context) {
+  yield takeEvery(types.LOCATION_CHANGED, handleLocationChange, context)
 }
 
 export default {

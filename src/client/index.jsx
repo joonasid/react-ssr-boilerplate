@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { routerForBrowser, initializeCurrentLocation } from 'redux-little-router'
 
+import Logger from './services/logger'
 import App from './components/StatefulApp'
 import routes from './routes'
 import { getReducers, getSagas } from './store'
@@ -22,6 +23,10 @@ if (typeof window !== 'undefined') {
 
   window.INITIAL_STATE = initialState
 
+  const log = new Logger({ config: initialState.config })
+  const services = { log }
+  const context = { services }
+
   const {
     reducer: router,
     middleware: routerMiddleware,
@@ -34,7 +39,7 @@ if (typeof window !== 'undefined') {
       initialState,
       composeWithDevTools(enhancer, applyMiddleware(routerMiddleware, sagaMiddleware))
     ),
-    runSaga: sagaMiddleware.run(getSagas)
+    runSaga: sagaMiddleware.run(getSagas, context)
   }
 
   const initialLocation = store.getState().router
