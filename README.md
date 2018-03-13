@@ -2,17 +2,17 @@
 
 This project contains boilerplate code for server-side rendered React application, using the following technologies and libraries:
 
- - React (v16)
- - Redux
- - Redux-saga
- - Re-ducks
- - Styled components
- - Node.js + Express
+ - [React 16](https://reactjs.org/)
+ - [Redux](https://github.com/reactjs/react-redux)
+ - [Redux-saga](https://github.com/redux-saga/redux-saga)
+ - [Re-ducks](https://github.com/alexnm/re-ducks)
+ - [Styled components](https://www.styled-components.com/)
+ - [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/)
 
 ### Requirements
 
- - node.js (v8.9)
- - yarn (v 1.3.2)
+ - node.js (v8.9) and preferably [nvm](https://github.com/creationix/nvm)
+ - [yarn](https://yarnpkg.com/en/) (v 1.3.2)
 
 ## Installation and startup
 
@@ -41,4 +41,3 @@ Start the following processes in separate windows (do the latter only once the f
  - `SERVER_LOG_LEVEL` (`info`) the minimum log message level to write to console
 
 LICENCE: MIT
-w
