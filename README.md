@@ -34,7 +34,7 @@ Start the following processes in separate windows (do the latter only once the f
 
  - `APP_ENV` (also `NODE_ENV`) (`production`) `production` or `development`
  - `SERVER_LISTEN_ADDRESS` (127.0.0.1) - the app listen address
- - `SERVER_LISTEN_ADDRESS` (1337) - the app listen port
+ - `SERVER_LISTEN_PORT` (1337) - the app listen port
  - `SERVER_BASE_URL` (`http://localhost:1337)` the internet-facing application base URL
  - `SERVER_ROUTES_FRONT_PAGE_CACHE_TTL` (15 minutes) - the cache TTL for server-rendered app pages, in format `HH:mm:ss`
  - `SERVER_ROUTES_SITEMAP_CACHE_TTL` (24 hours) - the cache TTL for site metadata, e.g. `sitemap.xml`, in format `HH:mm:ss`
