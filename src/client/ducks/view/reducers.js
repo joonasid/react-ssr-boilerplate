@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable'
+import produce from 'immer'
 import types from './types'
 
 export const initialState = {
@@ -6,13 +6,10 @@ export const initialState = {
   deviceType: 'mobile'
 }
 
-export default (state  = fromJS(initialState), { type, payload }) => {
+export default (state  = initialState, { type, payload }) => produce(state, (draft) => {
   switch (type) {
     case types.CHANGE_DEVICE_TYPE: {
-      return state.set('deviceType', payload)
-    }
-    default: {
-      return state
+      draft.deviceType = payload
     }
   }
-}
+})

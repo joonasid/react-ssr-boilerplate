@@ -7,7 +7,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
 import routes from '../../client/routes'
-import { getReducers, getImmutableState } from '../../client/store'
+import { getReducers } from '../../client/store'
 import App from '../../client/components/StatefulApp'
 
 const InitialState = ({ state }) => (
@@ -64,7 +64,7 @@ export default class AppRenderer {
     const { reducer, middleware, enhancer } = routerForExpress({ routes, request })
     const store = createStore(
       getReducers({ router: reducer }),
-      getImmutableState(initialState),
+      initialState,
       compose(enhancer, applyMiddleware(middleware))
     )
 
