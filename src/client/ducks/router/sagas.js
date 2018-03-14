@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { fork, put, takeEvery } from 'redux-saga/effects'
 
 import { routes } from '../../routes'
 import types from './types'
@@ -26,6 +26,8 @@ function * watchLocationChange (context) {
   yield takeEvery(types.LOCATION_CHANGED, handleLocationChange, context)
 }
 
-export default {
-  watchLocationChange
+export default (context) => {
+  return [
+    fork(watchLocationChange, context),
+  ]
 }

@@ -52,6 +52,16 @@ if (typeof window !== 'undefined') {
     store.dispatch(initializeCurrentLocation(initialLocation))
   }
 
+  const checkDeviceType = () => {
+    const width = window.innerWidth
+    const newDeviceType = getDeviceType(width)
+    const deviceType = store.getState().view.deviceType
+    if (newDeviceType !== deviceType) {
+      store.dispatch(viewActions.changeDeviceType(newDeviceType))
+    }
+  }
+  checkDeviceType() // perform once to reset to current window size
+
   ReactDOM.hydrate(
     <Provider store={store}>
       <App/>
@@ -59,12 +69,5 @@ if (typeof window !== 'undefined') {
     rootElement
   )
 
-  window.addEventListener('resize', () => {
-    const width = window.innerWidth
-    const newDeviceType = getDeviceType(width)
-    const deviceType = store.getState().view.deviceType
-    if (newDeviceType !== deviceType) {
-      store.dispatch(viewActions.changeDeviceType(newDeviceType))
-    }
-  })
+  window.addEventListener('resize', checkDeviceType)
 }
