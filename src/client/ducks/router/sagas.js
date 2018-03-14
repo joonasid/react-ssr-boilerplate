@@ -5,7 +5,7 @@ import types from './types'
 import { pageActions } from '../page/index'
 
 function * handleLocationChange (context, { payload }) {
-  const {services: {log}} = context
+  const { services: { log } } = context
   const { route } = payload
 
   log.debug('Oi! Route changed', payload)
@@ -26,8 +26,7 @@ function * watchLocationChange (context) {
   yield takeEvery(types.LOCATION_CHANGED, handleLocationChange, context)
 }
 
-export default (context) => {
-  return [
-    fork(watchLocationChange, context),
-  ]
-}
+export default (context) => [
+  fork(watchLocationChange, context),
+]
+
