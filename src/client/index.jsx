@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
@@ -21,7 +21,10 @@ if (typeof window !== 'undefined') {
     initialState.config.isInClientSide = true
   }
 
-  window.INITIAL_STATE = initialState
+  const {isDevelopment} = initialState.config
+  if (isDevelopment) {
+    window.INITIAL_STATE = initialState
+  }
 
   const log = new Logger({ config: initialState.config })
   const services = { log }
@@ -37,7 +40,9 @@ if (typeof window !== 'undefined') {
     ...createStore(
       getReducers({ router }),
       initialState,
-      composeWithDevTools(enhancer, applyMiddleware(routerMiddleware, sagaMiddleware))
+      isDevelopment
+        ? composeWithDevTools(enhancer, applyMiddleware(routerMiddleware, sagaMiddleware))
+        : compose(enhancer, applyMiddleware(routerMiddleware, sagaMiddleware))
     ),
     runSaga: sagaMiddleware.run(getSagas, context)
   }
@@ -47,6 +52,16 @@ if (typeof window !== 'undefined') {
     store.dispatch(initializeCurrentLocation(initialLocation))
   }
 
+  const checkDeviceType = () => {
+    const width = window.innerWidth
+    const newDeviceType = getDeviceType(width)
+    const deviceType = store.getState().view.deviceType
+    if (newDeviceType !== deviceType) {
+      store.dispatch(viewActions.changeDeviceType(newDeviceType))
+    }
+  }
+  checkDeviceType() // perform once to reset to current window size
+
   ReactDOM.hydrate(
     <Provider store={store}>
       <App/>
@@ -54,12 +69,5 @@ if (typeof window !== 'undefined') {
     rootElement
   )
 
-  window.addEventListener('resize', () => {
-    const width = window.innerWidth
-    const newDeviceType = getDeviceType(width)
-    const deviceType = store.getState().view.deviceType
-    if (newDeviceType !== deviceType) {
-      store.dispatch(viewActions.changeDeviceType(newDeviceType))
-    }
-  })
+  window.addEventListener('resize', checkDeviceType)
 }

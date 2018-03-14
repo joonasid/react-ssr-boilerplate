@@ -1,1 +1,1 @@
-export { default as routerSagas } from './sagas'
+export { default as forkSagas } from './sagas'
