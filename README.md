@@ -3,6 +3,7 @@
 This project contains boilerplate code for server-side rendered React application, using the following technologies and libraries:
 
  - [React 16](https://reactjs.org/)
+ - [Storybook](https://storybook.js.org/)
  - [Redux](https://github.com/reactjs/react-redux)
  - [Redux-saga](https://github.com/redux-saga/redux-saga)
  - [Re-ducks](https://github.com/alexnm/re-ducks)
