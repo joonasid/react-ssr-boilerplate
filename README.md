@@ -12,7 +12,7 @@ This project contains boilerplate code for server-side rendered React applicatio
 
 ### Requirements
 
- - node.js (v8.9) and preferably [nvm](https://github.com/creationix/nvm)
+ - [node.js](https://nodejs.org/) (v8.9) and preferably [nvm](https://github.com/creationix/nvm)
  - [yarn](https://yarnpkg.com/en/) (v 1.5.1)
 
 ## Installation and startup
