@@ -2,5 +2,7 @@ sudo: required
 language: node_js
 node_js:
   - "8.9.1"
+before_install:
+  - export PATH=$HOME/.yarn/bin:$PATH
 script: ./scripts/travis/build.sh && ./scripts/travis/test.sh
 
