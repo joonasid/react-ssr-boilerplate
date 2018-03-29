@@ -2,10 +2,7 @@ import React, {Component} from 'react'
 import styled, {injectGlobal} from 'styled-components'
 import reset from 'styled-reset'
 
-import {
-  fonts,
-  media
-} from '../constants/styles'
+import {fonts, media} from '../constants/styles'
 import DevTool from './dev/DevTool'
 
 injectGlobal`
