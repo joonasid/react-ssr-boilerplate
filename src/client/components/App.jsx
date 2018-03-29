@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import React, {Component} from 'react'
+import styled, {injectGlobal} from 'styled-components'
 import reset from 'styled-reset'
 
-import { fonts, media } from '../constants/styles'
+import {fonts, media} from '../constants/styles'
+import DevTool from './dev/DevTool'
 
 injectGlobal`
   ${reset}
@@ -18,6 +19,7 @@ injectGlobal`
     font-family: ${fonts.sansSerif};
     background-color: #f4f4f4;
     font-size: 16px;
+    height: 100%;
   }
 `
 
@@ -25,6 +27,7 @@ const AppArea = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  height: 800px;
   background-color: #ddd;
 `
 
@@ -32,14 +35,13 @@ const Container = styled.div`
   background-color: white;
   width: 100%;
   min-height: 100%;
-  padding-bottom: 1em;
+  height: 100%;
   flex-grow: 1;
   
   ${media.desktop`
-    max-width: 800px;
+    max-width: 960px;
     margin: 4em auto;
     border-radius: 4px;
-    padding: 2em 2em 3em 2em;
     box-shadow: 0px 4px 32px 0px rgba(0,0,0,0.15);
     min-height: auto;
     flex-grow: 0;  
@@ -52,11 +54,17 @@ const Header = styled.h1`
 `
 
 class App extends Component {
-  render () {
+  render() {
+    const {view, config} = this.props
+    const {isDevelopment} = config
     return (
       <AppArea>
         <Container>
-          <Header>Hello, React SSR!</Header>
+          <Header>Hello,
+            React!</Header>
+          {isDevelopment &&
+          <DevTool
+            view={view}/>}
         </Container>
       </AppArea>
     )
