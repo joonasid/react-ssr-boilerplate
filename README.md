@@ -7,6 +7,7 @@ This project contains boilerplate code for server-side rendered React applicatio
  - [Redux](https://github.com/reactjs/react-redux)
  - [Redux-saga](https://github.com/redux-saga/redux-saga)
  - [Re-ducks](https://github.com/alexnm/re-ducks)
+ - [Redux-little-router](https://github.com/FormidableLabs/redux-little-router)
  - [Styled components](https://www.styled-components.com/)
  - [Node.js](https://nodejs.org/en/) + [Express](https://expressjs.com/)
 

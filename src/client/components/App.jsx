@@ -5,6 +5,8 @@ import reset from 'styled-reset'
 import {fonts, media} from '../constants/styles'
 import DevTool from './dev/DevTool'
 
+import TopBanner from './TopBanner'
+
 injectGlobal`
   ${reset}
   #root {
@@ -39,7 +41,7 @@ const Container = styled.div`
   flex-grow: 1;
   
   ${media.desktop`
-    max-width: 960px;
+    max-width: 1192px;
     margin: 4em auto;
     border-radius: 4px;
     box-shadow: 0px 4px 32px 0px rgba(0,0,0,0.15);
@@ -60,8 +62,8 @@ class App extends Component {
     return (
       <AppArea>
         <Container>
-          <Header>Hello,
-            React!</Header>
+          <Header>Hello, React!</Header>
+          <TopBanner/>
           {isDevelopment && <DevTool view={view}/>}
         </Container>
       </AppArea>
