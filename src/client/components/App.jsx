@@ -5,8 +5,6 @@ import reset from 'styled-reset'
 import {fonts, media} from '../constants/styles'
 import DevTool from './dev/DevTool'
 
-import TopBanner from './TopBanner'
-
 injectGlobal`
   ${reset}
   #root {
@@ -63,7 +61,6 @@ class App extends Component {
       <AppArea>
         <Container>
           <Header>Hello, React!</Header>
-          <TopBanner/>
           {isDevelopment && <DevTool view={view}/>}
         </Container>
       </AppArea>
