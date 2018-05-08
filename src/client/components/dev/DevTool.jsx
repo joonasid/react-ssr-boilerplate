@@ -51,6 +51,7 @@ class DevTool extends Component {
     const {window: {width, height}} = this.state
     return (
       <DevToolWrapper>
+        Foo:&nbsp;
         {deviceType}&nbsp;
         ({width} x {height} px)
       </DevToolWrapper>
