@@ -20,7 +20,7 @@ This project contains boilerplate code for server-side rendered React applicatio
 
  - clone this repo
  - `yarn`
- - `yarn build; yarn start`
+ - `yarn build && yarn start`
  - open `http://localhost:1337` with your favourite browser
 
 ## Development (live-reload of client and server sides)
