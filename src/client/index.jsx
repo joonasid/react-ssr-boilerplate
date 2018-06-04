@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { routerForBrowser, initializeCurrentLocation } from 'redux-little-router'
+import { find } from 'lodash'
 
 import Logger from './services/logger'
 import App from './components/StatefulApp'
@@ -46,7 +47,21 @@ if (typeof window !== 'undefined') {
     ),
     runSaga: sagaMiddleware.run(getSagas, context)
   }
-
+  
+  const storageKeyWhitelist = ['foo']
+  window.addEventListener('storage', (e) => {
+    const {key, oldValue, newValue} = e
+    if (find(storageKeyWhitelist, (s) => s === key)) {
+      store.dispatch({type: 'LOCAL_STORAGE_CHANGED',
+        payload: {
+          key,
+          oldValue,
+          newValue
+        }
+      })
+    }
+  })
+  
   const initialLocation = store.getState().router
   if (initialLocation) {
     store.dispatch(initializeCurrentLocation(initialLocation))
@@ -61,7 +76,7 @@ if (typeof window !== 'undefined') {
     }
   }
   checkDeviceType() // perform once to reset to current window size
-
+  
   ReactDOM.hydrate(
     <Provider store={store}>
       <App/>

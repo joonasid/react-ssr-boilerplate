@@ -88,7 +88,7 @@ export default class FrontPages {
   serveApp = (req) => (state) => {
     const page = this.getPageDescriptor(state)
     const renderApp = this.renderer.getRendererForRequest(req)
-    return Promise.resolve(renderApp(page, state))
+    return renderApp(page, state)
       .then(renderTemplate(appTemplate))
       .then((html) => ({ body: html }))
   }
